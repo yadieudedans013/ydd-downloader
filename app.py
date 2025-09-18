@@ -1,4 +1,4 @@
-
+﻿
 import os
 import json
 from flask import Flask, request, jsonify, render_template, send_file, abort
@@ -59,17 +59,17 @@ def preview():
     # Try to fetch basic metadata
     cmd = ["yt-dlp", "--dump-json", "--no-playlist", url]
     # cookies support (optional)
-    cookies_path = Path("cookies.json")
+    cookies_path = Path("cookies.txt")
     if cookies_path.exists():
         cmd = ["yt-dlp", "--cookies", str(cookies_path), "--dump-json", "--no-playlist", url]
 
     ok, out, err = run_cmd(cmd, timeout=60)
     if not ok:
-        return jsonify({"error": err or out or "Impossible d'obtenir l'aperçu"}), 400
+        return jsonify({"error": err or out or "Impossible d'obtenir l'aperÃ§u"}), 400
     try:
         info = json.loads(out.splitlines()[-1])
     except Exception:
-        return jsonify({"error": "Impossible de lire les métadonnées"}), 400
+        return jsonify({"error": "Impossible de lire les mÃ©tadonnÃ©es"}), 400
 
     thumb = info.get("thumbnail")
     title = info.get("title")
@@ -99,7 +99,7 @@ def download():
         tmpdir = Path(tmpdir)
         out_tmpl = str(tmpdir / ("%(title).80s.%(ext)s"))
 
-        cookies_path = Path("cookies.json") if Path("cookies.json").exists() else None
+        cookies_path = Path("cookies.txt") if Path("cookies.txt").exists() else None
 
         cmd = build_ytdlp_cmd(url, fmt=quality, audio_only=audio_only, cookies_path=str(cookies_path) if cookies_path else None, out_tmpl=out_tmpl)
         ok, out, err = run_cmd(cmd, timeout=180)
@@ -107,13 +107,13 @@ def download():
             # Common hint for sites needing cookies
             hint = ""
             if "Sign in to confirm" in (out+err) or "login required" in (out+err).lower():
-                hint = " Astuce : ajoute un cookies.json exporté depuis ton navigateur."
-            return jsonify({"error": (err or out or "Téléchargement échoué") + hint}), 400
+                hint = " Astuce : ajoute un cookies.txt exportÃ© depuis ton navigateur."
+            return jsonify({"error": (err or out or "TÃ©lÃ©chargement Ã©chouÃ©") + hint}), 400
 
         # Find produced file
         files = list(tmpdir.glob("*"))
         if not files:
-            return jsonify({"error": "Aucun fichier téléchargé"}), 400
+            return jsonify({"error": "Aucun fichier tÃ©lÃ©chargÃ©"}), 400
 
         # Move to persistent dir
         DOWNLOAD_DIR.mkdir(exist_ok=True, parents=True)
@@ -136,3 +136,4 @@ def serve_file(fname):
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", "5000"))
     app.run(host="0.0.0.0", port=port, debug=False)
+
