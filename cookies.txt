@@ -1,2 +1,0 @@
-# Netscape HTTP Cookie File
-# This file was generated for yt-dlp
