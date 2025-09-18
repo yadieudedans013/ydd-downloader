@@ -1,0 +1,62 @@
+
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>YDD Downloader</title>
+  <link rel="icon" href="/static/favicon.svg">
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header class="hero">
+    <div class="brand">
+      <img src="/static/logo.svg" alt="YDD" />
+      <h1>YDD Downloader</h1>
+    </div>
+    <p>Colle un lien (YouTube, TikTok, Instagram, Facebook...)</p>
+  </header>
+
+  <main class="card">
+    <div class="row input-row">
+      <input id="url" placeholder="https://..." />
+    </div>
+
+    <div class="row options">
+      <label><input type="radio" name="type" value="video" checked> Vidéo (MP4)</label>
+      <label><input type="radio" name="type" value="audio"> Audio (MP3/M4A)</label>
+
+      <select id="quality">
+        <option value="best">Auto (meilleure)</option>
+      </select>
+    </div>
+
+    <div class="row actions">
+      <button id="preview">Aperçu</button>
+      <button id="download" class="primary">Télécharger</button>
+    </div>
+
+    <details class="tips">
+      <summary>Besoin d'aide ?</summary>
+      <ul>
+        <li>Si une plateforme demande une connexion / anti-bot, place un <code>cookies.json</code> à la racine (exporte depuis ton navigateur) puis redeploie.</li>
+        <li>Les fichiers téléchargés sont disponibles temporairement via le bouton Télécharger.</li>
+      </ul>
+    </details>
+
+    <div id="msg" class="msg hide"></div>
+
+    <div id="previewBox" class="preview hide">
+      <img id="thumb" alt="aperçu" />
+      <div>
+        <h3 id="title"></h3>
+        <p id="meta"></p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">© 2025 YDD</footer>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>

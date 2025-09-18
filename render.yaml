@@ -1,0 +1,10 @@
+
+services:
+  - type: web
+    name: ydd-downloader
+    runtime: python
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    autoDeploy: true
